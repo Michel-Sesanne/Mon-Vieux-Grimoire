@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire/issues"
+  },
+  "homepage": "https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
