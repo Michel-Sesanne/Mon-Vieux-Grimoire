@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire#readme",
   "dependencies": {
+    "auth": "^0.0.9",
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
-    "mongoose": "^7.5.1"
+    "mongoose": "^7.5.1",
+    "mongoose-unique-validator": "^4.0.0"
   }
 }

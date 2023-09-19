@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const bookSchema = mongoose.Schema({
-  //_id: { type: String, required: true },  // Probablement pas requis
   userId: { type: String, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true },
