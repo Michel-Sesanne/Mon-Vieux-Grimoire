@@ -23,11 +23,17 @@ exports.modifyBook = (req, res, next) => {
     } : { ...req.body };
 
     delete bookObject._userId;
+    
     Book.findOne({_id: req.params.id})
       .then((book) => {
         if (book.userId != req.auth.userId) {
-          res.status(401).json({ message: 'Non-autorisé'});          
+          res.status(403).json({ message: 'unauthorized request'});          
         } else {
+          if (req.file) {
+            // Supprimer l'ancienne image si une nouvelle image est fournie
+            const filename = book.imageUrl.split('/images/')[1];
+            fs.unlinkSync(`images/${filename}`);
+          }
           Book.updateOne({ _id: req.params.id}, { ...bookObject, _id: req.params.id})
            .then(() => res.status(200).json({ message: 'Livre modifié !' }))
            .catch(error => res.status(401).json({ error }));
