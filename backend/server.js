@@ -40,7 +40,7 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app); /* crée un serveur HTTP en utilisant l'application Express 'app'
-                                          serveur sera capable de gérer les requêtes HTTP entrantes */
+                                          serveur capable de gérer les requêtes HTTP entrantes */
 
 server.on('error', errorHandler); //ajoute un gestionnaire d'événement pour l'événement 'error' du serveur
 server.on('listening', () => {    // idem pour 'listening'

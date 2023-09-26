@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const bookSchema = mongoose.Schema({
+const bookSchema = mongoose.Schema({ // Le champ "Id" est automatiquement généré par Mongoose
   userId: { type: String, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true },
@@ -17,3 +17,4 @@ const bookSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('Book', bookSchema);
+// La méthode 'model' transforme ce modèle en un modèle utilisable

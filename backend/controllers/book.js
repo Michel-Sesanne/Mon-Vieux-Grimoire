@@ -98,7 +98,7 @@ exports.rateBook = (req, res, next) => {
           book.averageRating = totalGrades / book.ratings.length;
           // Mettre à jour la note moyenne dans le document du livre
           Book.updateOne({ _id: req.params.id }, book)
-              .then(() => { res.status(201).json({ message: 'Évaluation ajoutée avec succès', book }) })
+              .then(() => { res.status(201).json({ message: 'Évaluation ajoutée avec succès', book: book._id }) })
               .catch((error) => { res.status(401).json({ error }) });
       })
       .catch((error) => {
