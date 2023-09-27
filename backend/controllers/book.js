@@ -39,25 +39,36 @@ exports.deleteBook = (req, res, next) => {
 };
 
 exports.rateBook = (req, res, next) => {  
+  const rating = parseFloat(req.body.rating);
+  
+  if (isNaN(rating) || rating < 0 || rating > 5) {
+    return res.status(400).json({ message: 'La note doit être comprise entre 0 et 5.' });
+  }
+
   Book.findOne({ _id: req.params.id })
       .then(book => {    
           // Vérifier si l'utilisateur a déjà noté ce livre
-          book.ratings.map(rate => {
-              if (req.auth.userId === rate.userId) {
-                  res.status(400).json({ message: 'Vous avez déjà noté ce livre.' })
-              }
-          })
+          const userRating = book.ratings.find(rate => req.auth.userId === rate.userId);
+          if (userRating) {
+              return res.status(400).json({ message: 'Vous avez déjà noté ce livre.' });
+          }
+
           // Ajouter la nouvelle notation au tableau "ratings" du livre
           book.ratings.push({
-              "userId": req.auth.userId,
-              "grade": req.body.rating
+              userId: req.auth.userId,
+              grade: rating
           });
+          
           // Recalculer la note moyenne en utilisant toutes les notations du tableau "ratings"
           const totalGrades = book.ratings.reduce((sum, rating) => sum + rating.grade, 0);
-          book.averageRating = totalGrades / book.ratings.length;
+          const averageRating = totalGrades / book.ratings.length;
+
+          // Limiter la note moyenne à 2 chiffres après la virgule
+          book.averageRating = parseFloat(averageRating.toFixed(2));
+
           // Mettre à jour la note moyenne dans le document du livre
           Book.updateOne({ _id: req.params.id }, book)          
-              .then(() => { res.status(201).json(book)})
+              .then(() => { res.status(201).json(book) })
               .catch((error) => { res.status(401).json({ error }) });
       })
       .catch((error) => {
