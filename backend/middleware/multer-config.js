@@ -24,7 +24,7 @@ const resizeAndConvert = (buffer) => {
         .webp()
         .toBuffer()
         .catch(error => {
-            throw error; // Renvoie l'erreur telle qu'elle est produite
+            throw error;
         });
 };
 
@@ -34,26 +34,25 @@ module.exports = (req, res, next) => {
             // Gestion spécifique des erreurs Multer
             return next(err);
         } else if (err) {
-            // Autres erreurs, renvoie l'erreur telle qu'elle est produite
             return next(err);
         }
 
-        if (!req.file) {
-            // Aucun fichier fourni, renvoie une nouvelle Error
-            return next(new Error());
+        // Vérifier si un fichier a été téléchargé (ce doit être le cas pour la création)
+        if (req.file) {
+            resizeAndConvert(req.file.buffer)
+                .then((data) => {
+                    const filename = Date.now() + '.webp';
+                    fs.writeFileSync('images/' + filename, data);
+                    req.body.ImageUrl = filename; // Mettre à jour l'ImageUrl
+                    next();
+                })
+                .catch((error) => {
+                    return next(error);
+                });
+        } else {
+            // Aucun fichier n'a été téléchargé, continuer la modification sans changer l'ImageUrl
+            next();
         }
-
-        resizeAndConvert(req.file.buffer)
-            .then((data) => {
-                const filename = Date.now() + '.webp';
-                fs.writeFileSync('images/' + filename, data);
-                req.file.filename = filename;
-                next();
-            })
-            .catch((error) => {
-                // Renvoie l'erreur telle qu'elle est produite
-                return next(error);
-            });
     });
 };
 
