@@ -43,7 +43,7 @@ module.exports = (req, res, next) => {
                 .then((data) => {
                     const filename = Date.now() + '.webp';
                     fs.writeFileSync('images/' + filename, data);
-                    req.body.ImageUrl = filename; // Mettre à jour l'ImageUrl
+                    req.file.filename = filename;
                     next();
                 })
                 .catch((error) => {

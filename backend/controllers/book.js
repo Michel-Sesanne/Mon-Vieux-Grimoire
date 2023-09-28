@@ -28,9 +28,7 @@ exports.createBook = (req, res, next) => {
   const book = new Book({
     ...bookObject,
     userId: req.auth.userId,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    averageRating: 0, // Initialisation de la note moyenne à 0
-    ratings: [] // Initialisation du tableau des notations à vide
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
 
   book.save()
