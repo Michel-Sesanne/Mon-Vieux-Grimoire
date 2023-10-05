@@ -25,6 +25,12 @@ exports.createBook = (req, res, next) => {
   const bookObject = JSON.parse(req.body.book);
   delete bookObject._id;
   delete bookObject._userId;
+
+  if (!bookObject.ratings) {  //Initialise la note moyenne et le rating (Si le frontend change et ne rend plus obligatoire la notation à la création)
+    bookObject.ratings = [];
+    bookObject.averageRating = 0;
+  }
+
   const book = new Book({
     ...bookObject,
     userId: req.auth.userId,
