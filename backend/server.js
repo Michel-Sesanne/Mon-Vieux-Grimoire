@@ -14,7 +14,7 @@ const normalizePort = val => {
 };
 
 //déterminer le port sur lequel le serveur écoutera (variable d'environnement "PORT" ou "4000" par défaut)
-const port = normalizePort(process.env.PORT || '4000'); // port 4000 défini dans 'frontend > constants.js
+const port = normalizePort(process.env.PORT || '4000'); // port 4000 défini dans 'frontend > constants.js'
 app.set('port', port); // configure l'application Express pour utiliser le port défini précédemment
 
 // fonction pour gérer les erreurs survenues lors de la tentative d'écoute sur le port par le serveur

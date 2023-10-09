@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Site de notation de livres",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire.git"
   },
-  "author": "",
+  "author": "Open Class Rooms + Michel SESANNE",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Michel-Sesanne/Mon-Vieux-Grimoire/issues"
